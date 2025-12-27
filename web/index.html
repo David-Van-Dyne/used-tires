@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vandyne Used Tires</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Search Used Tires</h1>
+      <div class="controls">
+        <label>
+          Size
+          <select id="sizeFilter">
+            <option value="">All sizes</option>
+          </select>
+        </label>
+        <label>
+          Min tread (32nds)
+          <input id="minTread" type="number" min="0" step="1" value="0" />
+        </label>
+        <label>
+          Search
+          <input id="search" type="text" placeholder="Brand, model, notes" />
+        </label>
+        <label>
+          Sort by
+          <select id="sortBy">
+            <option value="size">Size</option>
+            <option value="price">Price</option>
+            <option value="tread">Tread</option>
+            <option value="brand">Brand</option>
+          </select>
+        </label>
+        <div class="cart-btn-wrapper">
+          <a class="btn" id="viewCartBtn" href="cart.html">View Cart</a>
+        </div>
+        <div class="results-wrapper">
+          <div id="resultsMeta" class="results-meta"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <aside class="sizes" id="sizeList"></aside>
+      
+      <section class="inventory">
+        <div id="inventoryGrid" class="grid"></div>
+      </section>
+    </main>
+
+    <template id="tireCardTemplate">
+      <article class="card">
+        <div class="card-header">
+          <h3 class="title"></h3>
+          <span class="badge size"></span>
+        </div>
+        <div class="meta">
+          <div><strong>Brand:</strong> <span class="brand"></span></div>
+          <div><strong>Model:</strong> <span class="model"></span></div>
+          <div><strong>Tread:</strong> <span class="tread"></span> 32nds</div>
+          <div><strong>Quantity:</strong> <span class="quantity"></span></div>
+          <div><strong>Price(Per Tire):</strong> $<span class="price"></span></div>
+          <div class="notes-row"></div>
+        </div>
+        <div class="select-row">
+          <label>
+            Select quantity
+            <button type="button" class="dec">-</button>
+            <input class="select-qty" type="number" min="0" step="1" inputmode="numeric" />
+            <button type="button" class="inc">+</button>
+          </label>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+  </html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · Used Tire Inventory</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .admin-wrap { display: grid; gap: 16px; align-content: start; }
+      .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+      .row { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+      .row label { font-size: 12px; color: var(--muted); display: grid; gap: 6px; }
+      .row input { background: #0b1220; border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 8px; min-width: 140px; }
+      .btn { background: #16a34a; border: 1px solid #128c3f; color: white; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+      .btn.secondary { background: #0b1220; border-color: var(--border); color: var(--text); }
+      .btn.danger { background: #b91c1c; border-color: #991b1b; }
+      table { width: 100%; border-collapse: collapse; }
+      thead th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12px; padding: 8px; border-bottom: 1px solid var(--border); }
+      tbody td { padding: 6px 8px; border-bottom: 1px solid #142033; }
+      tbody input { width: 100%; background: #0b1220; border: 1px solid var(--border); color: var(--text); padding: 6px 8px; border-radius: 6px; }
+      .actions { white-space: nowrap; }
+      .hint { color: var(--muted); font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Inventory</h1>
+      <div class="controls">
+        <span class="hint">Make changes, then click "Save to Server" to persist.  Export JSON for backups.</span>
+      </div>
+    </header>
+
+    <main class="content cart-content">
+      <section class="admin-wrap">
+        <div class="panel">
+          <div class="row">
+            <label>Import CSV
+              <input id="importCsv" type="file" accept=".csv,text/csv" />
+            </label>
+            <label>Import JSON
+              <input id="importFile" type="file" accept="application/json,.json" />
+            </label>
+            <button id="exportCsvBtn" class="btn">Export CSV</button>
+            <button id="exportBtn" class="btn secondary">Export JSON</button>
+            <button id="copyBtn" class="btn secondary">Copy JSON</button>
+            <button id="templateCsvBtn" class="btn secondary">Download CSV template</button>
+            <button id="clearBtn" class="btn danger">Clear All</button>
+            <a href="/web/" class="btn secondary">Back to catalog</a>
+            <button id="saveBtn" class="btn" style="background: #2563eb; border-color: #1d4ed8;">Save to Server</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2 style="margin:0 0 10px; font-size:16px;">Add / Update Item</h2>
+          <form id="addForm" class="row" autocomplete="off">
+            <label>Size
+              <input id="fSize" required placeholder="205/55R16" />
+            </label>
+            <label>Brand
+              <input id="fBrand" placeholder="Michelin" />
+            </label>
+            <label>Model
+              <input id="fModel" placeholder="Defender" />
+            </label>
+            <label>Tread (32nds)
+              <input id="fTread" type="number" min="0" step="1" value="7" />
+            </label>
+            <label>Quantity
+              <input id="fQty" type="number" min="1" step="1" value="1" />
+            </label>
+            <label>Price ($)
+              <input id="fPrice" type="number" min="0" step="1" value="40" />
+            </label>
+            <label>Notes
+              <input id="fNotes" placeholder="e.g., One plug repaired" />
+            </label>
+            <button class="btn" type="submit">Add Item</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="results-meta" id="countMeta">0 item(s)</div>
+          <div style="overflow:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:70px;">ID</th>
+                  <th>Size</th>
+                  <th>Brand</th>
+                  <th>Model</th>
+                  <th style="width:110px;">Tread</th>
+                  <th style="width:110px;">Qty</th>
+                  <th style="width:120px;">Price</th>
+                  <th>Notes</th>
+                  <th class="actions" style="width:120px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+  </html>

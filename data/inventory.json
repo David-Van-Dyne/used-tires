@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 1,
+    "size": "275/40R20",
+    "brand": "Goodyear",
+    "model": "Assurance WeatherReady",
+    "tread_32nds": 19,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 2,
+    "size": "225/50R17",
+    "brand": "Goodyear",
+    "model": "Assurance MaxLife",
+    "tread_32nds": 16,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Winter rated (3PMSF)"
+  },
+  {
+    "id": 3,
+    "size": "205/55R16",
+    "brand": "Michelin",
+    "model": "Defender T+H",
+    "tread_32nds": 18,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Stored indoors"
+  },
+  {
+    "id": 4,
+    "size": "265/35R19",
+    "brand": "Michelin",
+    "model": "LTX M/S2",
+    "tread_32nds": 18,
+    "quantity": 18,
+    "price": 35,
+    "notes": "Winter rated (3PMSF)"
+  },
+  {
+    "id": 5,
+    "size": "245/60R18",
+    "brand": "BFGoodrich",
+    "model": "Winter T/A KSI",
+    "tread_32nds": 19,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Performance-oriented"
+  },
+  {
+    "id": 6,
+    "size": "305/40R22",
+    "brand": "Yokohama",
+    "model": "AVID Ascend GT",
+    "tread_32nds": 19,
+    "quantity": 6,
+    "price": 35,
+    "notes": "Lightly used"
+  },
+  {
+    "id": 7,
+    "size": "225/40R18",
+    "brand": "Hankook",
+    "model": "Kinergy PT",
+    "tread_32nds": 16,
+    "quantity": 14,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 8,
+    "size": "285/70R17",
+    "brand": "Hankook",
+    "model": "Optimo H727",
+    "tread_32nds": 19,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Good tread depth"
+  },
+  {
+    "id": 9,
+    "size": "245/45R18",
+    "brand": "Goodyear",
+    "model": "EfficientGrip",
+    "tread_32nds": 16,
+    "quantity": 18,
+    "price": 35,
+    "notes": "Warehouse special"
+  },
+  {
+    "id": 10,
+    "size": "205/60R16",
+    "brand": "Cooper",
+    "model": "CS5 Ultra Touring",
+    "tread_32nds": 18,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Balanced and ready to mount"
+  },
+  {
+    "id": 11,
+    "size": "285/45R22",
+    "brand": "Continental",
+    "model": "ExtremeContact DWS 06 Plus",
+    "tread_32nds": 16,
+    "quantity": 8,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 12,
+    "size": "LT265/75R16",
+    "brand": "Pirelli",
+    "model": "Scorpion All Terrain Plus",
+    "tread_32nds": 20,
+    "quantity": 6,
+    "price": 35,
+    "notes": "SUV fitment"
+  },
+  {
+    "id": 13,
+    "size": "285/70R17",
+    "brand": "Continental",
+    "model": "ExtremeContact DWS 06 Plus",
+    "tread_32nds": 16,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Performance-oriented"
+  },
+  {
+    "id": 14,
+    "size": "245/45R18",
+    "brand": "Continental",
+    "model": "CrossContact LX25",
+    "tread_32nds": 22,
+    "quantity": 14,
+    "price": 35,
+    "notes": "No patches or plugs"
+  },
+  {
+    "id": 15,
+    "size": "235/40R19",
+    "brand": "Firestone",
+    "model": "WeatherGrip",
+    "tread_32nds": 20,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 16,
+    "size": "205/60R16",
+    "brand": "Michelin",
+    "model": "Primacy Tour A/S",
+    "tread_32nds": 21,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Great for daily driving"
+  },
+  {
+    "id": 17,
+    "size": "235/55R18",
+    "brand": "Cooper",
+    "model": "CS5 Ultra Touring",
+    "tread_32nds": 18,
+    "quantity": 16,
+    "price": 35,
+    "notes": "Truck tire"
+  },
+  {
+    "id": 18,
+    "size": "245/50R20",
+    "brand": "BFGoodrich",
+    "model": "Advantage T/A Sport",
+    "tread_32nds": 19,
+    "quantity": 6,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 19,
+    "size": "245/75R17",
+    "brand": "Firestone",
+    "model": "Winterforce 2",
+    "tread_32nds": 19,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Winter rated (3PMSF)"
+  },
+  {
+    "id": 20,
+    "size": "245/50R20",
+    "brand": "Cooper",
+    "model": "Evolution Winter",
+    "tread_32nds": 20,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Quiet ride"
+  },
+  {
+    "id": 21,
+    "size": "235/60R18",
+    "brand": "BFGoodrich",
+    "model": "All-Terrain T/A KO2",
+    "tread_32nds": 15,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Quiet ride"
+  },
+  {
+    "id": 22,
+    "size": "275/40R20",
+    "brand": "Bridgestone",
+    "model": "WeatherPeak",
+    "tread_32nds": 16,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Truck tire"
+  },
+  {
+    "id": 23,
+    "size": "265/35R19",
+    "brand": "BFGoodrich",
+    "model": "Winter T/A KSI",
+    "tread_32nds": 19,
+    "quantity": 18,
+    "price": 35,
+    "notes": "New take-off set"
+  },
+  {
+    "id": 24,
+    "size": "285/45R22",
+    "brand": "Goodyear",
+    "model": "Assurance MaxLife",
+    "tread_32nds": 19,
+    "quantity": 12,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 25,
+    "size": "265/70R17",
+    "brand": "Yokohama",
+    "model": "GEOLANDAR A/T G015",
+    "tread_32nds": 22,
+    "quantity": 2,
+    "price": 35,
+    "notes": "No patches or plugs"
+  },
+  {
+    "id": 26,
+    "size": "235/60R18",
+    "brand": "Bridgestone",
+    "model": "Blizzak WS90",
+    "tread_32nds": 16,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Stored indoors"
+  },
+  {
+    "id": 27,
+    "size": "265/35R19",
+    "brand": "Continental",
+    "model": "CrossContact LX25",
+    "tread_32nds": 20,
+    "quantity": 6,
+    "price": 35,
+    "notes": "DOT within last 2 years"
+  },
+  {
+    "id": 28,
+    "size": "225/40R18",
+    "brand": "Firestone",
+    "model": "Destination LE3",
+    "tread_32nds": 20,
+    "quantity": 16,
+    "price": 35,
+    "notes": "New take-off set"
+  },
+  {
+    "id": 29,
+    "size": "225/45R17",
+    "brand": "Hankook",
+    "model": "Dynapro AT2",
+    "tread_32nds": 18,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 30,
+    "size": "245/50R20",
+    "brand": "Cooper",
+    "model": "Discoverer AT3 4S",
+    "tread_32nds": 16,
+    "quantity": 16,
+    "price": 35,
+    "notes": "Great for daily driving"
+  },
+  {
+    "id": 31,
+    "size": "225/40R18",
+    "brand": "Firestone",
+    "model": "WeatherGrip",
+    "tread_32nds": 17,
+    "quantity": 16,
+    "price": 35,
+    "notes": "DOT within last 2 years"
+  },
+  {
+    "id": 32,
+    "size": "235/45R17",
+    "brand": "Pirelli",
+    "model": "Winter Sottozero 3",
+    "tread_32nds": 21,
+    "quantity": 8,
+    "price": 35,
+    "notes": "DOT within last 2 years"
+  },
+  {
+    "id": 33,
+    "size": "225/40R18",
+    "brand": "Continental",
+    "model": "ExtremeContact DWS 06 Plus",
+    "tread_32nds": 21,
+    "quantity": 12,
+    "price": 35,
+    "notes": "Good tread depth"
+  },
+  {
+    "id": 34,
+    "size": "245/50R20",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 16,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 35,
+    "size": "215/60R16",
+    "brand": "Hankook",
+    "model": "Kinergy PT",
+    "tread_32nds": 18,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 36,
+    "size": "195/65R15",
+    "brand": "Goodyear",
+    "model": "Assurance WeatherReady",
+    "tread_32nds": 18,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Balanced and ready to mount"
+  },
+  {
+    "id": 37,
+    "size": "185/65R15",
+    "brand": "Hankook",
+    "model": "Kinergy PT",
+    "tread_32nds": 18,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Even wear"
+  },
+  {
+    "id": 38,
+    "size": "235/55R18",
+    "brand": "Firestone",
+    "model": "WeatherGrip",
+    "tread_32nds": 22,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Even wear"
+  },
+  {
+    "id": 39,
+    "size": "215/45R17",
+    "brand": "Yokohama",
+    "model": "GEOLANDAR A/T G015",
+    "tread_32nds": 16,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Winter rated (3PMSF)"
+  },
+  {
+    "id": 40,
+    "size": "285/70R17",
+    "brand": "Yokohama",
+    "model": "iceGUARD iG53",
+    "tread_32nds": 22,
+    "quantity": 2,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 41,
+    "size": "205/55R16",
+    "brand": "Yokohama",
+    "model": "AVID Ascend GT",
+    "tread_32nds": 16,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Lightly used"
+  },
+  {
+    "id": 42,
+    "size": "235/55R18",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 17,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Performance-oriented"
+  },
+  {
+    "id": 43,
+    "size": "255/55R18",
+    "brand": "BFGoodrich",
+    "model": "Advantage T/A Sport",
+    "tread_32nds": 16,
+    "quantity": 16,
+    "price": 35,
+    "notes": "DOT within last 2 years"
+  },
+  {
+    "id": 44,
+    "size": "225/45R17",
+    "brand": "Michelin",
+    "model": "LTX M/S2",
+    "tread_32nds": 15,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 45,
+    "size": "235/45R17",
+    "brand": "Yokohama",
+    "model": "iceGUARD iG53",
+    "tread_32nds": 22,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Truck tire"
+  },
+  {
+    "id": 46,
+    "size": "245/50R20",
+    "brand": "Michelin",
+    "model": "Pilot Sport 4",
+    "tread_32nds": 21,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Truck tire"
+  },
+  {
+    "id": 47,
+    "size": "255/55R18",
+    "brand": "BFGoodrich",
+    "model": "g-Force COMP-2 A/S",
+    "tread_32nds": 21,
+    "quantity": 18,
+    "price": 35,
+    "notes": "Even wear"
+  },
+  {
+    "id": 48,
+    "size": "225/50R17",
+    "brand": "Continental",
+    "model": "ExtremeContact DWS 06 Plus",
+    "tread_32nds": 18,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Ideal for long trips"
+  },
+  {
+    "id": 49,
+    "size": "245/75R17",
+    "brand": "Firestone",
+    "model": "Destination LE3",
+    "tread_32nds": 20,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Balanced and ready to mount"
+  },
+  {
+    "id": 50,
+    "size": "255/45R19",
+    "brand": "BFGoodrich",
+    "model": "Winter T/A KSI",
+    "tread_32nds": 17,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Stored indoors"
+  },
+  {
+    "id": 51,
+    "size": "215/60R16",
+    "brand": "Bridgestone",
+    "model": "Turanza QuietTrack",
+    "tread_32nds": 16,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Truck tire"
+  },
+  {
+    "id": 52,
+    "size": "225/45R17",
+    "brand": "Cooper",
+    "model": "Endeavor Plus",
+    "tread_32nds": 15,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Great for daily driving"
+  },
+  {
+    "id": 53,
+    "size": "LT245/75R16",
+    "brand": "Cooper",
+    "model": "Zeon RS3-G1",
+    "tread_32nds": 20,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Lightly used"
+  },
+  {
+    "id": 54,
+    "size": "285/45R22",
+    "brand": "Hankook",
+    "model": "Ventus S1 Noble2",
+    "tread_32nds": 19,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Quiet ride"
+  },
+  {
+    "id": 55,
+    "size": "285/45R22",
+    "brand": "Pirelli",
+    "model": "Scorpion All Terrain Plus",
+    "tread_32nds": 20,
+    "quantity": 4,
+    "price": 35,
+    "notes": "New take-off set"
+  },
+  {
+    "id": 56,
+    "size": "215/55R17",
+    "brand": "Cooper",
+    "model": "Zeon RS3-G1",
+    "tread_32nds": 16,
+    "quantity": 4,
+    "price": 35,
+    "notes": "DOT within last 2 years"
+  },
+  {
+    "id": 57,
+    "size": "235/55R18",
+    "brand": "Firestone",
+    "model": "Firehawk AS V2",
+    "tread_32nds": 17,
+    "quantity": 12,
+    "price": 35,
+    "notes": "Great for daily driving"
+  },
+  {
+    "id": 58,
+    "size": "245/50R20",
+    "brand": "Continental",
+    "model": "ExtremeContact DWS 06 Plus",
+    "tread_32nds": 19,
+    "quantity": 6,
+    "price": 35,
+    "notes": "Good tread depth"
+  },
+  {
+    "id": 59,
+    "size": "205/60R16",
+    "brand": "Firestone",
+    "model": "Firehawk AS V2",
+    "tread_32nds": 15,
+    "quantity": 18,
+    "price": 35,
+    "notes": "Warehouse special"
+  },
+  {
+    "id": 60,
+    "size": "235/40R19",
+    "brand": "Goodyear",
+    "model": "Eagle Sport All-Season",
+    "tread_32nds": 19,
+    "quantity": 4,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 61,
+    "size": "245/75R17",
+    "brand": "Firestone",
+    "model": "WeatherGrip",
+    "tread_32nds": 19,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Great value"
+  },
+  {
+    "id": 62,
+    "size": "235/55R18",
+    "brand": "Hankook",
+    "model": "Ventus S1 Noble2",
+    "tread_32nds": 19,
+    "quantity": 18,
+    "price": 35,
+    "notes": "Even wear"
+  },
+  {
+    "id": 63,
+    "size": "255/55R18",
+    "brand": "Michelin",
+    "model": "Defender T+H",
+    "tread_32nds": 21,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Balanced and ready to mount"
+  },
+  {
+    "id": 64,
+    "size": "195/65R15",
+    "brand": "Hankook",
+    "model": "Ventus S1 Noble2",
+    "tread_32nds": 19,
+    "quantity": 6,
+    "price": 35,
+    "notes": "Good tread depth"
+  },
+  {
+    "id": 65,
+    "size": "245/45R18",
+    "brand": "Yokohama",
+    "model": "YK740 GTX",
+    "tread_32nds": 15,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Great for daily driving"
+  },
+  {
+    "id": 66,
+    "size": "245/50R20",
+    "brand": "Bridgestone",
+    "model": "Blizzak WS90",
+    "tread_32nds": 15,
+    "quantity": 12,
+    "price": 35,
+    "notes": "Ideal for long trips"
+  },
+  {
+    "id": 67,
+    "size": "245/45R18",
+    "brand": "Bridgestone",
+    "model": "WeatherPeak",
+    "tread_32nds": 17,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Warehouse special"
+  },
+  {
+    "id": 68,
+    "size": "285/70R17",
+    "brand": "Michelin",
+    "model": "Primacy Tour A/S",
+    "tread_32nds": 18,
+    "quantity": 8,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 69,
+    "size": "285/70R17",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 17,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Performance-oriented"
+  },
+  {
+    "id": 70,
+    "size": "215/45R17",
+    "brand": "Bridgestone",
+    "model": "WeatherPeak",
+    "tread_32nds": 15,
+    "quantity": 6,
+    "price": 35,
+    "notes": "Best for highway use"
+  },
+  {
+    "id": 71,
+    "size": "215/45R17",
+    "brand": "Yokohama",
+    "model": "GEOLANDAR A/T G015",
+    "tread_32nds": 19,
+    "quantity": 6,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 72,
+    "size": "LT265/75R16",
+    "brand": "Michelin",
+    "model": "CrossClimate 2",
+    "tread_32nds": 18,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Good tread depth"
+  },
+  {
+    "id": 73,
+    "size": "285/70R17",
+    "brand": "Pirelli",
+    "model": "Scorpion Verde All Season",
+    "tread_32nds": 18,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Lightly used"
+  },
+  {
+    "id": 74,
+    "size": "LT265/75R16",
+    "brand": "Hankook",
+    "model": "Dynapro AT2",
+    "tread_32nds": 16,
+    "quantity": 10,
+    "price": 35,
+    "notes": "SUV fitment"
+  },
+  {
+    "id": 75,
+    "size": "275/40R20",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 20,
+    "quantity": 2,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 76,
+    "size": "245/50R20",
+    "brand": "Pirelli",
+    "model": "Scorpion Verde All Season",
+    "tread_32nds": 19,
+    "quantity": 2,
+    "price": 35,
+    "notes": "All-season traction"
+  },
+  {
+    "id": 77,
+    "size": "265/35R19",
+    "brand": "Yokohama",
+    "model": "AVID Ascend GT",
+    "tread_32nds": 20,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Great value"
+  },
+  {
+    "id": 78,
+    "size": "235/60R18",
+    "brand": "Goodyear",
+    "model": "EfficientGrip",
+    "tread_32nds": 18,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Balanced and ready to mount"
+  },
+  {
+    "id": 79,
+    "size": "305/40R22",
+    "brand": "Yokohama",
+    "model": "ADVAN Sport A/S+",
+    "tread_32nds": 18,
+    "quantity": 12,
+    "price": 35,
+    "notes": "Winter rated (3PMSF)"
+  },
+  {
+    "id": 80,
+    "size": "215/60R16",
+    "brand": "Hankook",
+    "model": "Optimo H727",
+    "tread_32nds": 20,
+    "quantity": 4,
+    "price": 35,
+    "notes": "Warehouse special"
+  },
+  {
+    "id": 81,
+    "size": "235/60R18",
+    "brand": "Pirelli",
+    "model": "Scorpion All Terrain Plus",
+    "tread_32nds": 20,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Warehouse special"
+  },
+  {
+    "id": 82,
+    "size": "245/45R18",
+    "brand": "Bridgestone",
+    "model": "Dueler H/L Alenza Plus",
+    "tread_32nds": 21,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Performance-oriented"
+  },
+  {
+    "id": 83,
+    "size": "265/35R19",
+    "brand": "Cooper",
+    "model": "CS5 Ultra Touring",
+    "tread_32nds": 21,
+    "quantity": 18,
+    "price": 35,
+    "notes": "New take-off set"
+  },
+  {
+    "id": 84,
+    "size": "265/70R17",
+    "brand": "Pirelli",
+    "model": "Scorpion Verde All Season",
+    "tread_32nds": 21,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Great value"
+  },
+  {
+    "id": 85,
+    "size": "275/40R20",
+    "brand": "Hankook",
+    "model": "i*cept evo2",
+    "tread_32nds": 22,
+    "quantity": 16,
+    "price": 35,
+    "notes": "Lightly used"
+  },
+  {
+    "id": 86,
+    "size": "235/60R18",
+    "brand": "BFGoodrich",
+    "model": "Advantage T/A Sport",
+    "tread_32nds": 16,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Stored indoors"
+  },
+  {
+    "id": 87,
+    "size": "285/45R22",
+    "brand": "Cooper",
+    "model": "CS5 Ultra Touring",
+    "tread_32nds": 16,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Warehouse special"
+  },
+  {
+    "id": 88,
+    "size": "245/60R18",
+    "brand": "Continental",
+    "model": "CrossContact LX25",
+    "tread_32nds": 15,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 89,
+    "size": "225/65R17",
+    "brand": "Cooper",
+    "model": "Discoverer AT3 4S",
+    "tread_32nds": 22,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Ideal for long trips"
+  },
+  {
+    "id": 90,
+    "size": "235/55R18",
+    "brand": "Yokohama",
+    "model": "iceGUARD iG53",
+    "tread_32nds": 21,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Quiet ride"
+  },
+  {
+    "id": 91,
+    "size": "275/40R20",
+    "brand": "Michelin",
+    "model": "Defender T+H",
+    "tread_32nds": 21,
+    "quantity": 8,
+    "price": 35,
+    "notes": "Performance-oriented"
+  },
+  {
+    "id": 92,
+    "size": "215/45R17",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 15,
+    "quantity": 18,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 93,
+    "size": "235/40R19",
+    "brand": "Goodyear",
+    "model": "EfficientGrip",
+    "tread_32nds": 17,
+    "quantity": 16,
+    "price": 35,
+    "notes": "Stored indoors"
+  },
+  {
+    "id": 94,
+    "size": "245/45R18",
+    "brand": "Cooper",
+    "model": "CS5 Ultra Touring",
+    "tread_32nds": 22,
+    "quantity": 20,
+    "price": 35,
+    "notes": "Stored indoors"
+  },
+  {
+    "id": 95,
+    "size": "LT245/75R16",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 17,
+    "quantity": 16,
+    "price": 35,
+    "notes": "Good tread depth"
+  },
+  {
+    "id": 96,
+    "size": "255/55R18",
+    "brand": "Continental",
+    "model": "ExtremeContact DWS 06 Plus",
+    "tread_32nds": 22,
+    "quantity": 8,
+    "price": 35,
+    "notes": "No patches or plugs"
+  },
+  {
+    "id": 97,
+    "size": "215/55R17",
+    "brand": "Goodyear",
+    "model": "Wrangler All-Terrain Adventure",
+    "tread_32nds": 18,
+    "quantity": 10,
+    "price": 35,
+    "notes": "Best for highway use"
+  },
+  {
+    "id": 98,
+    "size": "275/55R20",
+    "brand": "Firestone",
+    "model": "Destination LE3",
+    "tread_32nds": 17,
+    "quantity": 6,
+    "price": 35,
+    "notes": "Matching set available"
+  },
+  {
+    "id": 99,
+    "size": "LT265/75R16",
+    "brand": "Bridgestone",
+    "model": "Dueler H/L Alenza Plus",
+    "tread_32nds": 16,
+    "quantity": 14,
+    "price": 35,
+    "notes": "Winter rated (3PMSF)"
+  },
+  {
+    "id": 100,
+    "size": "275/55R20",
+    "brand": "Firestone",
+    "model": "Destination A/T2",
+    "tread_32nds": 21,
+    "quantity": 2,
+    "price": 35,
+    "notes": "Lightly used"
+  }
+]
