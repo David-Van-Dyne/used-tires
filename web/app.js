@@ -160,8 +160,8 @@ function render() {
   const totalTires = sumQuantities(state.filtered);
   const { tires: selTires, cost: selCost } = selectedTotals();
   const sizeHint = state.filters.size ? ` in ${state.filters.size}` : "";
-  const selHint = selTires > 0 ? `. Selected: ${selTires} tire(s), $${selCost.toFixed(2)}` : "";
-  els.resultsMeta.textContent = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint + selHint;
+  const selHint = selTires > 0 ? `. Selected: ${selTires} tire(s), <span class="selCost">$${selCost.toFixed(2)}</span>` : "";
+  els.resultsMeta.innerHTML = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint + selHint;
   updateCartLinkCount();
   const frag = document.createDocumentFragment();
   if (state.filtered.length === 0) {
@@ -221,8 +221,8 @@ function onGridInput(e) {
   const totalTires = sumQuantities(state.filtered);
   const { tires: selTires, cost: selCost } = selectedTotals();
   const sizeHint = state.filters.size ? ` in ${state.filters.size}` : '';
-  const selHint = selTires > 0 ? `. Selected: ${selTires} tire(s), $${selCost.toFixed(2)}` : '';
-  els.resultsMeta.textContent = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint + selHint;
+  const selHint = selTires > 0 ? `. Selected: ${selTires} tire(s), <span class="selCost">$${selCost.toFixed(2)}</span>` : '';
+  els.resultsMeta.innerHTML = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint + selHint;
   updateCartLinkCount();
 }
 

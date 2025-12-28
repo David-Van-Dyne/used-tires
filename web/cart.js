@@ -67,7 +67,7 @@ function render() {
   }
   els.cartTableBody.replaceChildren(frag);
   const { tires, cost } = selectedTotals(items);
-  els.cartMeta.textContent = tires > 0 ? `${tires} tire(s), $${cost.toFixed(2)}` : 'No items selected';
+  els.cartMeta.innerHTML = tires > 0 ? `<span class="cartCost">${tires} tire(s), $${cost.toFixed(2)}</span>` : 'No items selected';
 }
 
 function onTableInput(e) {
