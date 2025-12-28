@@ -11,6 +11,7 @@ const els = {
   clearBtn: document.getElementById("clearBtn"),
   templateCsvBtn: document.getElementById("templateCsvBtn"),
   saveBtn: document.getElementById("saveBtn"),
+  logoutBtn: document.getElementById("logoutBtn"),
   tableBody: document.getElementById("tableBody"),
   countMeta: document.getElementById("countMeta"),
   addForm: document.getElementById("addForm"),
@@ -349,6 +350,17 @@ function mapHeader(k) {
   return null;
 }
 
+// Logout function
+async function logout() {
+  try {
+    await fetch('/api/logout', { method: 'POST' });
+    window.location.href = '/web/login.html';
+  } catch (e) {
+    console.error('Logout failed:', e);
+    window.location.href = '/web/login.html';
+  }
+}
+
 // Wire UI
 els.addForm.addEventListener("submit", (e) => { e.preventDefault(); upsertFromForm(); });
 els.tableBody.addEventListener("input", onTableInput);
@@ -362,5 +374,6 @@ els.copyBtn.addEventListener("click", copyJSON);
 els.clearBtn.addEventListener("click", clearAll);
 els.templateCsvBtn.addEventListener("click", downloadCsvTemplate);
 els.saveBtn.addEventListener("click", saveToServer);
+els.logoutBtn.addEventListener("click", logout);
 
 init();

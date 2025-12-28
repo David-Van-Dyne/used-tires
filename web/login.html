@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Login · Used Tire Inventory</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        padding: 20px;
+      }
+      .login-box {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 32px;
+        width: 100%;
+        max-width: 400px;
+      }
+      .login-box h1 {
+        margin: 0 0 24px;
+        font-size: 24px;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .form-group input {
+        width: 100%;
+        background: #0b1220;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .btn-login {
+        width: 100%;
+        background: var(--accent);
+        border: 1px solid #16a34a;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+      .btn-login:hover {
+        background: #16a34a;
+      }
+      .error-message {
+        color: #ef4444;
+        font-size: 14px;
+        margin-top: 12px;
+        text-align: center;
+        display: none;
+      }
+      .error-message.show {
+        display: block;
+      }
+      .back-link {
+        text-align: center;
+        margin-top: 16px;
+      }
+      .back-link a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h1>Admin Login</h1>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required autocomplete="username" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="current-password" />
+          </div>
+          <button type="submit" class="btn-login">Login</button>
+          <div id="errorMessage" class="error-message"></div>
+        </form>
+        <div class="back-link">
+          <a href="/web/">← Back to catalog</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById('loginForm');
+      const errorMessage = document.getElementById('errorMessage');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        errorMessage.classList.remove('show');
+        
+        try {
+          const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok && data.success) {
+            // Redirect to admin page
+            window.location.href = '/web/admin.html';
+          } else {
+            errorMessage.textContent = data.message || 'Invalid username or password';
+            errorMessage.classList.add('show');
+          }
+        } catch (error) {
+          errorMessage.textContent = 'Login failed. Please try again.';
+          errorMessage.classList.add('show');
+          console.error('Login error:', error);
+        }
+      });
+    </script>
+  </body>
+</html>

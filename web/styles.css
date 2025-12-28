@@ -31,6 +31,19 @@ body {
   font-size: 20px;
   letter-spacing: 0.4px;
 }
+
+.header-combo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#adminLoginBtn {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 16px;
+}
+
 .controls { display: flex; flex-wrap: wrap; gap: 12px 16px; }
 .controls label { font-size: 12px; color: var(--muted); display: grid; gap: 6px; }
 .results-meta { color: var(--muted); }
