@@ -167,6 +167,103 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(response.encode())
             return
         
+        # Handle order cancellation (protected endpoint)
+        if self.path == '/api/cancel-order':
+            if not self.is_authenticated():
+                self.send_response(401)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': 'Unauthorized'})
+                self.wfile.write(response.encode())
+                return
+            
+            try:
+                content_length = int(self.headers['Content-Length'])
+                post_data = self.rfile.read(content_length)
+                cancel_data = json.loads(post_data)
+                order_id = cancel_data.get('orderId')
+                
+                # Load existing orders
+                orders_path = os.path.join(os.getcwd(), 'data', 'orders.json')
+                orders = []
+                if os.path.exists(orders_path):
+                    with open(orders_path, 'r', encoding='utf-8') as f:
+                        orders = json.load(f)
+                
+                # Find the order
+                order = None
+                for o in orders:
+                    if o['id'] == order_id:
+                        order = o
+                        break
+                
+                if not order:
+                    self.send_response(404)
+                    self.send_header('Content-Type', 'application/json')
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.end_headers()
+                    response = json.dumps({'success': False, 'message': 'Order not found'})
+                    self.wfile.write(response.encode())
+                    return
+                
+                # Check if order can be cancelled
+                if order['status'] == 'cancelled':
+                    self.send_response(400)
+                    self.send_header('Content-Type', 'application/json')
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.end_headers()
+                    response = json.dumps({'success': False, 'message': 'Order already cancelled'})
+                    self.wfile.write(response.encode())
+                    return
+                
+                # Restore inventory quantities
+                inventory_path = os.path.join(os.getcwd(), 'data', 'inventory.json')
+                with open(inventory_path, 'r', encoding='utf-8') as f:
+                    inventory = json.load(f)
+                
+                for order_item in order['items']:
+                    for inv_item in inventory:
+                        if inv_item['id'] == order_item['id']:
+                            inv_item['quantity'] += order_item['selected_qty']
+                            break
+                
+                # Save updated inventory
+                with open(inventory_path, 'w', encoding='utf-8') as f:
+                    json.dump(inventory, f, indent=2)
+                
+                # Update order status to cancelled
+                order['status'] = 'cancelled'
+                
+                # Save orders
+                with open(orders_path, 'w', encoding='utf-8') as f:
+                    json.dump(orders, f, indent=2)
+                
+                # Success response
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                
+                response = json.dumps({
+                    'success': True, 
+                    'message': 'Order cancelled successfully',
+                    'orderId': order_id
+                })
+                self.wfile.write(response.encode())
+                
+                print(f"✓ Order #{order_id} cancelled - inventory restored")
+                
+            except Exception as e:
+                print(f"✗ Cancel order error: {e}")
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': str(e)})
+                self.wfile.write(response.encode())
+            return
+        
         if self.path == '/api/save-inventory':
             # Check authentication for save operations
             if not self.is_authenticated():
@@ -208,9 +305,14 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 response = json.dumps({'success': False, 'message': str(e)})
                 self.wfile.write(response.encode())
-        else:
-            self.send_response(404)
-            self.end_headers()
+            return
+        
+        # If no endpoint matched, return 404
+        self.send_response(404)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+        response = json.dumps({'success': False, 'message': 'Endpoint not found'})
+        self.wfile.write(response.encode())
     
     def do_GET(self):
         # Handle orders API (protected)

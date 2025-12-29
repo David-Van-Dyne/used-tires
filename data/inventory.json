@@ -355,7 +355,7 @@
     "brand": "Goodyear",
     "model": "Assurance WeatherReady",
     "tread_32nds": 18,
-    "quantity": 4,
+    "quantity": 2,
     "price": 35,
     "notes": "Balanced and ready to mount"
   },
@@ -1065,7 +1065,7 @@
     "brand": "Bridgestone",
     "model": "Potenza Sport",
     "tread_32nds": 17,
-    "quantity": 2,
+    "quantity": 0,
     "price": 35,
     "notes": "Great wet traction"
   },
@@ -1975,7 +1975,7 @@
     "brand": "Continental",
     "model": "ProContact TX",
     "tread_32nds": 17,
-    "quantity": 16,
+    "quantity": 14,
     "price": 35,
     "notes": "Light off-road use"
   },

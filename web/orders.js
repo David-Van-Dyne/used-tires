@@ -155,7 +155,8 @@ function render() {
           ${order.status === 'pending' ? '<button class="btn btn-nav" onclick="updateOrderStatus(' + order.id + ', \'confirmed\')">Confirm Order</button>' : ''}
           ${order.status === 'confirmed' ? '<button class="btn btn-nav" onclick="updateOrderStatus(' + order.id + ', \'ready\')">Mark Ready</button>' : ''}
           ${order.status === 'ready' ? '<button class="btn btn-nav" onclick="updateOrderStatus(' + order.id + ', \'completed\')">Mark Completed</button>' : ''}
-          ${order.status !== 'completed' ? '<button class="btn secondary" onclick="updateOrderStatus(' + order.id + ', \'pending\')">Reset to Pending</button>' : ''}
+          ${order.status !== 'completed' && order.status !== 'cancelled' ? '<button class="btn secondary" onclick="updateOrderStatus(' + order.id + ', \'pending\')">Reset to Pending</button>' : ''}
+          ${order.status !== 'completed' && order.status !== 'cancelled' ? '<button class="btn" style="background: #7c2d12; border-color: #991b1b;" onclick="cancelOrder(' + order.id + ')">Cancel Order</button>' : ''}
         </div>
       </div>
     `;
@@ -179,6 +180,34 @@ async function updateOrderStatus(orderId, newStatus) {
   } catch (error) {
     console.error('Error updating order:', error);
     alert('Failed to update order status');
+  }
+}
+
+async function cancelOrder(orderId) {
+  if (!confirm('Are you sure you want to cancel this order? This will restore the inventory quantities.')) {
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/cancel-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ orderId }),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert(`Order #${orderId} cancelled successfully. Inventory has been restored.`);
+      await loadOrders(); // Reload orders
+    } else {
+      throw new Error(result.message || 'Failed to cancel order');
+    }
+  } catch (error) {
+    console.error('Error cancelling order:', error);
+    alert('Failed to cancel order: ' + error.message);
   }
 }
 

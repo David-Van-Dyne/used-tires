@@ -606,6 +606,13 @@ body {
   border: 1px solid #3a3a3a; 
 }
 
+.status-cancelled { 
+  background: #3a1e1e; 
+  color: #fca5a5; 
+  border: 1px solid #5d2a2a; 
+  text-decoration: line-through;
+}
+
 .order-meta { 
   display: grid; 
   gap: 8px; 
