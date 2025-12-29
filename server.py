@@ -4,6 +4,9 @@ import json
 import os
 import hashlib
 import secrets
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 from base64 import b64encode
 from http.cookies import SimpleCookie
@@ -14,8 +17,101 @@ load_dotenv()
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
 PASSWORD = os.getenv("ADMIN_PASSWORD", "password")
 
+# Email configuration (optional)
+SMTP_HOST = os.getenv("SMTP_HOST", "")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "587")) if os.getenv("SMTP_PORT") else 587
+SMTP_USER = os.getenv("SMTP_USER", "")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
+FROM_EMAIL = os.getenv("FROM_EMAIL", SMTP_USER)
+ENABLE_EMAIL = bool(SMTP_HOST and SMTP_USER and SMTP_PASSWORD)
+
 # Store active sessions
 active_sessions = {}
+
+def send_order_confirmation_email(order_data):
+    """Send order confirmation email to customer"""
+    if not ENABLE_EMAIL:
+        print("⚠ Email not configured - skipping email notification")
+        return False
+    
+    try:
+        # Create message
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = f'Order Confirmation #{order_data["id"]}'
+        msg['From'] = FROM_EMAIL
+        msg['To'] = order_data['customer']['email']
+        
+        # Create HTML email body
+        html = f"""
+        <html>
+          <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #16a34a;">Order Confirmation</h2>
+            <p>Dear {order_data['customer']['firstName']} {order_data['customer']['lastName']},</p>
+            <p>Thank you for your order! We've received your order and will contact you shortly.</p>
+            
+            <h3>Order Details</h3>
+            <p><strong>Order Number:</strong> #{order_data['id']}</p>
+            <p><strong>Order Type:</strong> {order_data.get('orderType', 'N/A').title()}</p>
+            
+            <h3>Items Ordered</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: #f3f4f6;">
+                  <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Qty</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Size</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Item</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Price</th>
+                  <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+        """
+        
+        for item in order_data['items']:
+            line_total = item['selected_qty'] * item['price']
+            html += f"""
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd;">{item['selected_qty']}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">{item['size']}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">{item['brand']} {item['model']}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${item['price']:.2f}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${line_total:.2f}</td>
+                </tr>
+            """
+        
+        html += f"""
+              </tbody>
+            </table>
+            
+            <h3 style="margin-top: 20px;">Order Total: ${order_data['total']:.2f}</h3>
+            
+            <p style="margin-top: 30px; color: #666;">
+              We'll contact you at {order_data['customer']['phone']} or reply to this email 
+              when your order is ready.
+            </p>
+            
+            <p style="color: #666; font-size: 12px; margin-top: 40px;">
+              Thank you for your business!<br>
+              Vandyne Used Tires
+            </p>
+          </body>
+        </html>
+        """
+        
+        msg.attach(MIMEText(html, 'html'))
+        
+        # Send email
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASSWORD)
+            server.send_message(msg)
+        
+        print(f"✓ Confirmation email sent to {order_data['customer']['email']}")
+        return True
+        
+    except Exception as e:
+        print(f"✗ Failed to send email: {e}")
+        return False
 
 class InventoryHandler(SimpleHTTPRequestHandler):
     
@@ -42,8 +138,6 @@ class InventoryHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        print(f"POST request received: {self.path}")  # Debug line
-        
         # Handle login
         if self.path == '/api/login':
             try:
@@ -157,6 +251,9 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 
                 print(f"✓ Order #{order_data['id']} placed - ${order_data['total']:.2f}")
                 
+                # Send confirmation email (non-blocking)
+                send_order_confirmation_email(order_data)
+                
             except Exception as e:
                 print(f"✗ Order error: {e}")
                 self.send_response(500)
@@ -256,6 +353,77 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 
             except Exception as e:
                 print(f"✗ Cancel order error: {e}")
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': str(e)})
+                self.wfile.write(response.encode())
+            return
+        
+        # Handle order status update (protected endpoint)
+        if self.path == '/api/update-order-status':
+            if not self.is_authenticated():
+                self.send_response(401)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': 'Unauthorized'})
+                self.wfile.write(response.encode())
+                return
+            
+            try:
+                content_length = int(self.headers['Content-Length'])
+                post_data = self.rfile.read(content_length)
+                update_data = json.loads(post_data)
+                order_id = update_data.get('orderId')
+                new_status = update_data.get('status')
+                
+                # Load existing orders
+                orders_path = os.path.join(os.getcwd(), 'data', 'orders.json')
+                orders = []
+                if os.path.exists(orders_path):
+                    with open(orders_path, 'r', encoding='utf-8') as f:
+                        orders = json.load(f)
+                
+                # Find and update the order
+                order_found = False
+                for order in orders:
+                    if order['id'] == order_id:
+                        order['status'] = new_status
+                        order_found = True
+                        break
+                
+                if not order_found:
+                    self.send_response(404)
+                    self.send_header('Content-Type', 'application/json')
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.end_headers()
+                    response = json.dumps({'success': False, 'message': 'Order not found'})
+                    self.wfile.write(response.encode())
+                    return
+                
+                # Save orders
+                with open(orders_path, 'w', encoding='utf-8') as f:
+                    json.dump(orders, f, indent=2)
+                
+                # Success response
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                
+                response = json.dumps({
+                    'success': True, 
+                    'message': f'Order status updated to {new_status}',
+                    'orderId': order_id
+                })
+                self.wfile.write(response.encode())
+                
+                print(f"✓ Order #{order_id} status updated to: {new_status}")
+                
+            except Exception as e:
+                print(f"✗ Update order status error: {e}")
                 self.send_response(500)
                 self.send_header('Content-Type', 'application/json')
                 self.send_header('Access-Control-Allow-Origin', '*')

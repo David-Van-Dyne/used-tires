@@ -169,17 +169,25 @@ async function updateOrderStatus(orderId, newStatus) {
   const order = state.orders.find(o => o.id === orderId);
   if (!order) return;
   
-  order.status = newStatus;
-  
   try {
-    // TODO: Send update to server
-    // For now, we'll update locally and notify to save
-    console.log(`Order #${orderId} status updated to: ${newStatus}`);
-    render();
-    alert(`Order #${orderId} marked as ${newStatus}`);
+    const response = await fetch('/api/update-order-status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ orderId, status: newStatus }),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      await loadOrders(); // Reload orders to get updated data
+    } else {
+      throw new Error(result.message || 'Failed to update order status');
+    }
   } catch (error) {
     console.error('Error updating order:', error);
-    alert('Failed to update order status');
+    alert('Failed to update order status: ' + error.message);
   }
 }
 
