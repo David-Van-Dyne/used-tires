@@ -87,7 +87,6 @@ function render() {
     const tr = document.createElement("tr");
     tr.dataset.id = item.id;
     tr.innerHTML = `
-      <td><input type="checkbox" class="cell-select-all" /></td>
       <td><input type="number" class="cell-id" value="${item.id}" min="1" step="1" /></td>
       <td><input class="cell-size" value="${escapeAttr(item.size)}" /></td>
       <td><input class="cell-brand" value="${escapeAttr(item.brand)}" /></td>
