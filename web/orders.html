@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders · Used Tire Inventory</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header class="site-header">
+      <div class="header-flex">
+        <h1>Orders</h1>
+        <div class="header-actions">
+          <a href="admin.html" class="btn btn-nav">Inventory</a>
+          <button id="logoutBtn" class="btn secondary btn-logout">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="content cart-content">
+      <section class="orders-wrap">
+        <div class="panel">
+          <div class="orders-header">
+            <div class="orders-header-left">
+              <h2>
+                All Orders
+                <span id="newOrdersBadge" class="notification-badge" style="display: none;">0</span>
+              </h2>
+              <div class="orders-count" id="ordersCount">0 orders</div>
+            </div>
+            <div class="filter-controls">
+              <label class="filter-label">
+                Filter:
+                <select id="statusFilter">
+                  <option value="all">All Orders</option>
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="ready">Ready for Pickup</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </label>
+              <button id="refreshBtn" class="btn">🔄 Refresh</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="ordersContainer">
+          <div class="empty-state">Loading orders...</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="orders.js"></script>
+</body>
+</html>

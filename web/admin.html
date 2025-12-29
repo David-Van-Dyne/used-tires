@@ -26,7 +26,10 @@
     <header class="site-header">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1>Inventory</h1>
-        <button id="logoutBtn" class="btn secondary" style="background: #7c2d12; border-color: #991b1b;">Logout</button>
+        <div style="display: flex; gap: 12px;">
+          <a href="orders.html" class="btn" style="background: #16a34a; border-color: #128c3f;">View Orders</a>
+          <button id="logoutBtn" class="btn secondary" style="background: #7c2d12; border-color: #991b1b;">Logout</button>
+        </div>
       </div>
       <div class="controls">
         <span class="hint">Make changes, then click "Save to Server" to persist.  Export JSON for backups.</span>

@@ -154,21 +154,42 @@ async function handleSubmit(e) {
   }
 
   try {
-    // TODO: Send order to server
-    // For now, we'll just log it and show confirmation
-    console.log('Order submitted:', orderData);
+    // Disable submit button
+    const submitBtn = els.checkoutForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Placing Order...';
     
-    // Clear the cart
-    localStorage.removeItem(CART_KEY);
-    
-    // Show confirmation
-    alert(`Order #${orderData.id} placed successfully!\n\nTotal: $${orderData.total.toFixed(2)}\n\nWe'll contact you shortly at ${orderData.customer.email}`);
-    
-    // Redirect to home
-    window.location.href = 'index.html';
+    // Submit order to server
+    const response = await fetch('/api/submit-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      // Clear the cart
+      localStorage.removeItem(CART_KEY);
+      
+      // Show confirmation
+      alert(`Order #${orderData.id} placed successfully!\n\nTotal: $${orderData.total.toFixed(2)}\n\nWe'll contact you shortly at ${orderData.customer.email}`);
+      
+      // Redirect to home
+      window.location.href = 'index.html';
+    } else {
+      throw new Error(result.message || 'Order submission failed');
+    }
   } catch (error) {
     console.error('Order submission error:', error);
     alert('Failed to submit order. Please try again or contact us directly.');
+    
+    // Re-enable submit button
+    const submitBtn = els.checkoutForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Place Order';
   }
 }
 

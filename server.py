@@ -105,6 +105,68 @@ class InventoryHandler(SimpleHTTPRequestHandler):
             print(f"✓ User logged out")
             return
         
+        # Handle order submission (public endpoint)
+        if self.path == '/api/submit-order':
+            try:
+                content_length = int(self.headers['Content-Length'])
+                post_data = self.rfile.read(content_length)
+                order_data = json.loads(post_data)
+                
+                # Load existing orders
+                orders_path = os.path.join(os.getcwd(), 'data', 'orders.json')
+                orders = []
+                if os.path.exists(orders_path):
+                    with open(orders_path, 'r', encoding='utf-8') as f:
+                        orders = json.load(f)
+                
+                # Add new order
+                orders.append(order_data)
+                
+                # Save orders
+                with open(orders_path, 'w', encoding='utf-8') as f:
+                    json.dump(orders, f, indent=2)
+                
+                # Update inventory (reduce quantities)
+                inventory_path = os.path.join(os.getcwd(), 'data', 'inventory.json')
+                with open(inventory_path, 'r', encoding='utf-8') as f:
+                    inventory = json.load(f)
+                
+                # Reduce quantities for ordered items
+                for order_item in order_data['items']:
+                    for inv_item in inventory:
+                        if inv_item['id'] == order_item['id']:
+                            inv_item['quantity'] = max(0, inv_item['quantity'] - order_item['selected_qty'])
+                            break
+                
+                # Save updated inventory
+                with open(inventory_path, 'w', encoding='utf-8') as f:
+                    json.dump(inventory, f, indent=2)
+                
+                # Success response
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                
+                response = json.dumps({
+                    'success': True, 
+                    'message': 'Order placed successfully',
+                    'orderId': order_data['id']
+                })
+                self.wfile.write(response.encode())
+                
+                print(f"✓ Order #{order_data['id']} placed - ${order_data['total']:.2f}")
+                
+            except Exception as e:
+                print(f"✗ Order error: {e}")
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': str(e)})
+                self.wfile.write(response.encode())
+            return
+        
         if self.path == '/api/save-inventory':
             # Check authentication for save operations
             if not self.is_authenticated():
@@ -151,8 +213,38 @@ class InventoryHandler(SimpleHTTPRequestHandler):
             self.end_headers()
     
     def do_GET(self):
-        # Protect admin.html page
-        if self.path.endswith('admin.html') or self.path == '/web/admin.html':
+        # Handle orders API (protected)
+        if self.path == '/api/orders':
+            if not self.is_authenticated():
+                self.send_response(401)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': 'Unauthorized'})
+                self.wfile.write(response.encode())
+                return
+            
+            try:
+                orders_path = os.path.join(os.getcwd(), 'data', 'orders.json')
+                orders = []
+                if os.path.exists(orders_path):
+                    with open(orders_path, 'r', encoding='utf-8') as f:
+                        orders = json.load(f)
+                
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps(orders).encode())
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                response = json.dumps({'success': False, 'message': str(e)})
+                self.wfile.write(response.encode())
+            return
+        
+        # Protect admin pages
+        if self.path.endswith('admin.html') or self.path == '/web/admin.html' or \
+           self.path.endswith('orders.html') or self.path == '/web/orders.html':
             if not self.is_authenticated():
                 # Redirect to login page
                 self.send_response(302)
