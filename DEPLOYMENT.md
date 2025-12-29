@@ -34,43 +34,48 @@
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `python server.py`
    - **Plan**: **Free** (✓)
+6. Scroll down to "Environment Variables" section
+7. Click "Add Environment Variable" and add:
+   ```
+   ADMIN_USERNAME = vandyneadmin
+   ADMIN_PASSWORD = wetpotatoehighnoon
+   ```
+8. **IMPORTANT**: Before clicking "Create Web Service", add the database:
+   - Look for "Add from Database" button (or link that says "Connect a database")
+   - Click it
+   - Select your `used-tires-db` database
+   - Render will automatically add `DATABASE_URL` variable
+9. **Optional**: Add email variables if you want order confirmation emails:
+   ```
+   SMTP_HOST = smtp.gmail.com
+   SMTP_PORT = 587
+   SMTP_USER = vandyneperformance@gmail.com
+   SMTP_PASSWORD = tksl kdzj bezr hbke
+   FROM_EMAIL = vandyneperformance@gmail.com
+   ```
 
-### 3. Add Environment Variables
+### 4. If You Already Created the Web Service
 
-In the web service settings, add these environment variables:
+If you already clicked "Create Web Service" without adding the database, don't worry:
 
-```
-ADMIN_USERNAME=vandyneadmin
-ADMIN_PASSWORD=wetpotatoehighnoon
-```
+1. Go to your web service dashboard
+2. Click "Environment" tab (on the left sidebar)
+3. Scroll to "Environment Variables"
+4. Click "Add from Database" button
+5. Select `used-tires-db`
+6. It will add `DATABASE_URL` automatically
+7. Your service will redeploy automatically
 
-#### Add Database Connection
-1. Scroll to "Environment Variables"
-2. Click "Add from Database"
-3. Select `used-tires-db`
-4. Choose `DATABASE_URL`
-5. Click "Add"
+### 5. Deploy Complete!
 
-#### Optional: Add Email (if using)
-```
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
-FROM_EMAIL=your-email@gmail.com
-```
-
-### 4. Deploy!
-
-1. Click "Create Web Service"
-2. Render will:
+Once you click "Create Web Service" (or after adding database to existing service), Render will:
    - Clone your repo
    - Install dependencies
    - Create database tables automatically
    - Start your server
 3. Wait for deployment (~3-5 minutes)
 
-### 5. Your App is Live! 🎉
+### 6. Your App is Live! 🎉
 
 Your URL will be: `https://used-tires.onrender.com` (or whatever name you chose)
 
