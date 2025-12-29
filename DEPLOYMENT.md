@@ -99,6 +99,22 @@ Render will:
 
 Wait ~2-3 minutes for deployment to complete.
 
+**Important**: Your database is now live but empty! You need to add inventory data:
+
+**Option A - Upload via Admin Panel**:
+1. Go to your app URL and add `/web/login.html`
+2. Login with your admin credentials
+3. Go to Admin Panel
+4. Upload your CSV file with inventory
+5. Click "Save to Server"
+
+**Option B - Migrate from Local Database**:
+If you have data in your local database, you can migrate it:
+```bash
+DATABASE_URL="postgresql://your-render-db-url" python migrate_to_db.py
+```
+Replace `your-render-db-url` with the Internal Database URL from step 1.
+
 ### 5. Your App is Live! 🎉
 
 Your URL will be: `https://used-tires.onrender.com` (or whatever name you chose)
@@ -163,6 +179,21 @@ If you have production data in JSON files:
 3. This uploads your data directly to production database
 
 ## Troubleshooting
+
+### No Inventory Showing Up
+**Symptom**: You can upload CSV and save, but when you reload the page, everything is gone.
+
+**Solution**: The database tables exist but are empty. You need to add inventory:
+1. Go to `/web/login.html` and login
+2. Go to Admin Panel (`/web/admin.html`)
+3. Upload your CSV file with tire inventory
+4. Click "Save to Server"
+5. Refresh the public store page - inventory should now appear
+
+If data still doesn't persist:
+- Check Render logs for database connection errors
+- Verify DATABASE_URL environment variable is set correctly
+- Make sure you're using the Internal Database URL (with `-internal`)
 
 ### "Application failed to respond"
 - Check logs in Render dashboard

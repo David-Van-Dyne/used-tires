@@ -440,15 +440,27 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 session = get_session()
                 
                 try:
-                    # Update all tires
+                    # Update or create all tires
                     for item in inventory_data:
                         tire = session.query(Tire).filter_by(id=item['id']).first()
                         if tire:
+                            # Update existing tire
                             tire.brand = item.get('brand', '')
                             tire.size = item.get('size', '')
                             tire.quantity = item.get('quantity', 0)
                             tire.price = item.get('price', 0.0)
                             tire.notes = item.get('notes', '')
+                        else:
+                            # Create new tire
+                            tire = Tire(
+                                id=item['id'],
+                                brand=item.get('brand', ''),
+                                size=item.get('size', ''),
+                                quantity=item.get('quantity', 0),
+                                price=item.get('price', 0.0),
+                                notes=item.get('notes', '')
+                            )
+                            session.add(tire)
                     
                     session.commit()
                     
