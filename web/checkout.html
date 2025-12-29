@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Vandyne Used Tires</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <h1>Checkout</h1>
+        <div class="controls">
+            <a class="btn" href="cart.html">Back to Cart</a>
+        </div>
+    </header>
+
+    <main class="content" style="display: block; padding: 20px;">
+        <div class="checkout-wrap">
+            <!-- Order Summary -->
+            <div class="checkout-panel">
+                <h2>Order Summary</h2>
+                <div id="orderSummary">
+                    <div class="results-meta">Loading cart...</div>
+                </div>
+            </div>
+
+            <!-- Customer Information -->
+            <div class="checkout-panel">
+                <h2>Your Information</h2>
+                <form id="checkoutForm" class="form-grid">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderType">Order Type *</label>
+                        <select id="orderType" name="orderType" required>
+                            <option value="">Select...</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
+
+                    <div id="addressFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="address">Street Address</label>
+                            <input type="text" id="address" name="address" />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" />
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" id="state" name="state" placeholder="e.g., CA" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code</label>
+                            <input type="text" id="zipCode" name="zipCode" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Order Notes (Optional)</label>
+                        <textarea id="notes" name="notes"
+                            placeholder="Any special requests or instructions..."></textarea>
+                    </div>
+
+                    <div class="checkout-actions">
+                        <a href="cart.html" class="btn secondary">Back to Cart</a>
+                        <button type="submit" class="btn btn-primary">Place Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="checkout.js"></script>
+</body>
+
+</html>
