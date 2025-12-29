@@ -1,4 +1,3 @@
-cat > .gitignore << 'EOF'
 # Python
 __pycache__/
 *.py[cod]
@@ -21,8 +20,18 @@ Thumbs.db
 
 # Logs
 *.log
-EOF
 
+# Environment and secrets
 .env
-inentory.json
-orders.json
+# Note: .env.example SHOULD be committed (it's a template, no secrets)
+
+# Local database (SQLite for development)
+data/tires.db
+data/tires.db-journal
+
+# JSON backups
+data/*.backup
+
+# Legacy JSON files (now using database)
+data/inventory.json
+data/orders.json
