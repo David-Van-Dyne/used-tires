@@ -24,3 +24,5 @@ Thumbs.db
 EOF
 
 .env
+inentory.json
+orders.json
