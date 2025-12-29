@@ -40,12 +40,12 @@
             <label>Import CSV
               <input id="importCsv" type="file" accept=".csv,text/csv" />
             </label>
-            <label>Import JSON
+            <!-- <label>Import JSON
               <input id="importFile" type="file" accept="application/json,.json" />
-            </label>
+            </label> -->
             <button id="exportCsvBtn" class="btn">Export CSV</button>
-            <button id="exportBtn" class="btn secondary">Export JSON</button>
-            <button id="copyBtn" class="btn secondary">Copy JSON</button>
+            <!-- <button id="exportBtn" class="btn secondary">Export JSON</button>
+            <button id="copyBtn" class="btn secondary">Copy JSON</button> -->
             <button id="templateCsvBtn" class="btn secondary">Download CSV template</button>
             <button id="clearBtn" class="btn danger">Clear All</button>
             <a href="/web/" class="btn secondary">Back to catalog</a>
@@ -85,8 +85,9 @@
           <div class="results-meta" id="countMeta">0 item(s)</div>
           <div style="overflow:auto;">
             <table>
-              <thead>
+              <thead>                
                 <tr>
+                  <th style="width: 70px;">Select All<input type="checkbox" class="cell-select-all" /></th>
                   <th style="width:70px;">ID</th>
                   <th>Size</th>
                   <th>Brand</th>

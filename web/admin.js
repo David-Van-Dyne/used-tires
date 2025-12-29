@@ -3,11 +3,11 @@ const state = {
 };
 
 const els = {
-  importFile: document.getElementById("importFile"),
+  // importFile: document.getElementById("importFile"),
   importCsv: document.getElementById("importCsv"),
-  exportBtn: document.getElementById("exportBtn"),
+  // exportBtn: document.getElementById("exportBtn"),
   exportCsvBtn: document.getElementById("exportCsvBtn"),
-  copyBtn: document.getElementById("copyBtn"),
+  // copyBtn: document.getElementById("copyBtn"),
   clearBtn: document.getElementById("clearBtn"),
   templateCsvBtn: document.getElementById("templateCsvBtn"),
   saveBtn: document.getElementById("saveBtn"),
@@ -87,6 +87,7 @@ function render() {
     const tr = document.createElement("tr");
     tr.dataset.id = item.id;
     tr.innerHTML = `
+      <td><input type="checkbox" class="cell-select-all" /></td>
       <td><input type="number" class="cell-id" value="${item.id}" min="1" step="1" /></td>
       <td><input class="cell-size" value="${escapeAttr(item.size)}" /></td>
       <td><input class="cell-brand" value="${escapeAttr(item.brand)}" /></td>
@@ -170,21 +171,21 @@ function onTableClick(e) {
   }
 }
 
-function onImportFile(e) {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const json = JSON.parse(String(reader.result || "[]"));
-      state.items = normalize(json);
-      render();
-    } catch (err) {
-      alert("Invalid JSON file.");
-    }
-  };
-  reader.readAsText(file);
-}
+// function onImportFile(e) {
+//   const file = e.target.files?.[0];
+//   if (!file) return;
+//   const reader = new FileReader();
+//   reader.onload = () => {
+//     try {
+//       const json = JSON.parse(String(reader.result || "[]"));
+//       state.items = normalize(json);
+//       render();
+//     } catch (err) {
+//       alert("Invalid JSON file.");
+//     }
+//   };
+//   reader.readAsText(file);
+// }
 
 function onImportCsv(e) {
   const file = e.target.files?.[0];
@@ -227,28 +228,28 @@ function onImportCsv(e) {
   reader.readAsText(file);
 }
 
-function exportJSON() {
-  const json = JSON.stringify(state.items, null, 2);
-  const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "inventory.json";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
+// function exportJSON() {
+//   const json = JSON.stringify(state.items, null, 2);
+//   const blob = new Blob([json], { type: "application/json" });
+//   const url = URL.createObjectURL(blob);
+//   const a = document.createElement("a");
+//   a.href = url;
+//   a.download = "inventory.json";
+//   document.body.appendChild(a);
+//   a.click();
+//   a.remove();
+//   URL.revokeObjectURL(url);
+// }
 
-async function copyJSON() {
-  const json = JSON.stringify(state.items, null, 2);
-  try {
-    await navigator.clipboard.writeText(json);
-    alert("Copied to clipboard.");
-  } catch (e) {
-    alert("Copy failed. Use Export to download a file instead.");
-  }
-}
+// async function copyJSON() {
+//   const json = JSON.stringify(state.items, null, 2);
+//   try {
+//     await navigator.clipboard.writeText(json);
+//     alert("Copied to clipboard.");
+//   } catch (e) {
+//     alert("Copy failed. Use Export to download a file instead.");
+//   }
+// }
 
 function clearAll() {
   if (!confirm("Clear all items?")) return;
@@ -385,11 +386,11 @@ els.addForm.addEventListener("submit", (e) => { e.preventDefault(); upsertFromFo
 els.tableBody.addEventListener("input", onTableInput);
 els.tableBody.addEventListener("change", onTableInput);
 els.tableBody.addEventListener("click", onTableClick);
-els.importFile.addEventListener("change", onImportFile);
+// els.importFile.addEventListener("change", onImportFile);
 els.importCsv.addEventListener("change", onImportCsv);
-els.exportBtn.addEventListener("click", exportJSON);
+// els.exportBtn.addEventListener("click", exportJSON);
 els.exportCsvBtn.addEventListener("click", exportCSV);
-els.copyBtn.addEventListener("click", copyJSON);
+// els.copyBtn.addEventListener("click", copyJSON);
 els.clearBtn.addEventListener("click", clearAll);
 els.templateCsvBtn.addEventListener("click", downloadCsvTemplate);
 els.saveBtn.addEventListener("click", saveToServer);
