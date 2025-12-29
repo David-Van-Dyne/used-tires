@@ -54,21 +54,11 @@
    FROM_EMAIL = vandyneperformance@gmail.com
    ```
 
-### 4. If You Already Created the Web Service
-
-If you already clicked "Create Web Service" without adding the database, don't worry:
-
-1. Go to your web service dashboard
-2. Click "Environment" tab (on the left sidebar)
-3. Scroll to "Environment Variables"
-4. Click "Add from Database" button
-5. Select `used-tires-db`
-6. It will add `DATABASE_URL` automatically
-7. Your service will redeploy automatically
-
-### 5. Deploy Complete!
+### 6. Deploy Complete!
 
 Once you click "Create Web Service" (or after adding database to existing service), Render will:
+1. Click "Create Web Service"
+2. Render will:
    - Clone your repo
    - Install dependencies
    - Create database tables automatically
