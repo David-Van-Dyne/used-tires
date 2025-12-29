@@ -34,36 +34,63 @@
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `python server.py`
    - **Plan**: **Free** (✓)
-6. Scroll down to "Environment Variables" section
-7. Click "Add Environment Variable" and add:
-   ```
-   ADMIN_USERNAME = vandyneadmin
-   ADMIN_PASSWORD = wetpotatoehighnoon
-   ```
-8. **IMPORTANT**: Before clicking "Create Web Service", add the database:
-   - Look for "Add from Database" button (or link that says "Connect a database")
-   - Click it
-   - Select your `used-tires-db` database
-   - Render will automatically add `DATABASE_URL` variable
-9. **Optional**: Add email variables if you want order confirmation emails:
-   ```
-   SMTP_HOST = smtp.gmail.com
-   SMTP_PORT = 587
-   SMTP_USER = vandyneperformance@gmail.com
-   SMTP_PASSWORD = tksl kdzj bezr hbke
-   FROM_EMAIL = vandyneperformance@gmail.com
-   ```
+6. Click "Create Web Service" (don't worry about environment variables yet)
 
-### 6. Deploy Complete!
+### 4. Add Environment Variables (After Service is Created)
 
-Once you click "Create Web Service" (or after adding database to existing service), Render will:
-1. Click "Create Web Service"
-2. Render will:
+1. Wait for the initial deployment to complete (it will fail - that's expected without the database)
+2. On your web service dashboard, click **"Environment"** tab (left sidebar)
+3. Click **"Add Environment Variable"** and add each of these:
+
+**Required - Database Connection**:
+```
+Key: DATABASE_URL
+Value: [paste the Internal Database URL you copied from step 2]
+```
+
+**Required - Admin Credentials**:
+```
+Key: ADMIN_USERNAME
+Value: vandyneadmin
+```
+```
+Key: ADMIN_PASSWORD
+Value: wetpotatoehighnoon
+```
+
+**Optional - Email Notifications**:
+```
+Key: SMTP_HOST
+Value: smtp.gmail.com
+```
+```
+Key: SMTP_PORT
+Value: 587
+```
+```
+Key: SMTP_USER
+Value: vandyneperformance@gmail.com
+```
+```
+Key: SMTP_PASSWORD
+Value: tksl kdzj bezr hbke
+```
+```
+Key: FROM_EMAIL
+Value: vandyneperformance@gmail.com
+```
+
+4. Click **"Save Changes"**
+5. The service will automatically redeploy with the database connected
+
+### 5. Deployment Complete!
+Render will:
    - Clone your repo
    - Install dependencies
    - Create database tables automatically
    - Start your server
-3. Wait for deployment (~3-5 minutes)
+
+Wait ~2-3 minutes for deployment to complete.
 
 ### 6. Your App is Live! 🎉
 
