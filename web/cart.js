@@ -4,8 +4,6 @@ const els = {
   cartMeta: document.getElementById('cartMeta'),
   cartClear: document.getElementById('cartClear'),
   cartPrint: document.getElementById('cartPrint'),
-  cartExportJson: document.getElementById('cartExportJson'),
-  cartExportCsv: document.getElementById('cartExportCsv'),
 };
 
 const state = {
@@ -64,10 +62,10 @@ function render() {
           <button type="button" class="inc">+</button>
         </div>
       </td>
-      <td>${escapeHtml(it.size)}</td>
-      <td>${escapeHtml(`${it.brand} ${it.model}`.trim())}</td>
-      <td>$${(Number(it.price)||0).toFixed(2)}</td>
-      <td>$${line.toFixed(2)}</td>
+      <td style="font-size: 16px;">${escapeHtml(it.size)}</td>
+      <td style="font-size: 16px;">${escapeHtml(`${it.brand} ${it.model}`.trim())}</td>
+      <td style="font-size: 16px;">$${(Number(it.price)||0).toFixed(2)}</td>
+      <td style="font-size: 16px;">$${line.toFixed(2)}</td>
       <td><button class="btn danger cart-del" type="button">Remove</button></td>`;
     frag.appendChild(tr);
   }
@@ -120,27 +118,6 @@ function onTableClick(e) {
 
 function clearCart() { state.cart = {}; saveCartToStorage(); render(); }
 
-function exportJSON() {
-  const items = getSelectedItems().map(({ selected_qty, ...it }) => ({ ...it, quantity: selected_qty }));
-  const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'cart.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-}
-
-function exportCSV() {
-  const items = getSelectedItems();
-  const headers = ['id','size','brand','model','quantity','price','line_total','notes'];
-  const escape = (v) => { const s = String(v ?? ''); return /[",\n\r]/.test(s) ? '"' + s.replaceAll('"','""') + '"' : s; };
-  const rows = [headers.join(',')];
-  for (const it of items) {
-    rows.push([
-      it.id, it.size, it.brand, it.model, it.selected_qty,
-      (Number(it.price)||0).toFixed(2), (it.selected_qty*(Number(it.price)||0)).toFixed(2), it.notes
-    ].map(escape).join(','));
-  }
-  const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'cart.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-}
-
 function printCart() {
   const items = getSelectedItems();
   const { cost } = selectedTotals(items);
@@ -167,8 +144,6 @@ function wire() {
   els.cartTableBody.addEventListener('input', onTableInput);
   els.cartTableBody.addEventListener('click', onTableClick);
   els.cartClear.addEventListener('click', clearCart);
-  els.cartExportJson.addEventListener('click', exportJSON);
-  els.cartExportCsv.addEventListener('click', exportCSV);
   els.cartPrint.addEventListener('click', printCart);
 }
 
