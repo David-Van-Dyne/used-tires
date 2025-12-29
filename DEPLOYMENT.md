@@ -18,6 +18,12 @@
    - **Plan**: **Free** (✓ 90-day expiration, but auto-renews)
 4. Click "Create Database"
 5. Wait for database to provision (~2 minutes)
+6. Once created, scroll down to **"Connections"** section
+7. Find **"Internal Database URL"** and click the copy icon
+8. The URL looks like: `postgresql://username:password@dpg-xxxxx-internal/databasename`
+9. Save this URL - you'll need it for the environment variables
+
+**Important**: Use the **Internal** URL (ends with `-internal`), not the External URL.
 
 ### 2. Create Web Service
 
@@ -36,7 +42,7 @@
    - **Plan**: **Free** (✓)
 6. Click "Create Web Service" (don't worry about environment variables yet)
 
-### 4. Add Environment Variables (After Service is Created)
+### 3. Add Environment Variables (After Service is Created)
 
 1. Wait for the initial deployment to complete (it will fail - that's expected without the database)
 2. On your web service dashboard, click **"Environment"** tab (left sidebar)
@@ -45,8 +51,9 @@
 **Required - Database Connection**:
 ```
 Key: DATABASE_URL
-Value: [paste the Internal Database URL you copied from step 2]
+Value: [paste the Internal Database URL you copied in step 1]
 ```
+The value should look like: `postgresql://username:password@dpg-xxxxx-internal/databasename`
 
 **Required - Admin Credentials**:
 ```
@@ -83,7 +90,7 @@ Value: vandyneperformance@gmail.com
 4. Click **"Save Changes"**
 5. The service will automatically redeploy with the database connected
 
-### 5. Deployment Complete!
+### 4. Deployment Complete!
 Render will:
    - Clone your repo
    - Install dependencies
@@ -92,7 +99,7 @@ Render will:
 
 Wait ~2-3 minutes for deployment to complete.
 
-### 6. Your App is Live! 🎉
+### 5. Your App is Live! 🎉
 
 Your URL will be: `https://used-tires.onrender.com` (or whatever name you chose)
 

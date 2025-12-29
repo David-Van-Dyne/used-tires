@@ -545,6 +545,13 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(response.encode())
             return
         
+        # Redirect root to web interface
+        if self.path == '/' or self.path == '':
+            self.send_response(302)
+            self.send_header('Location', '/web/')
+            self.end_headers()
+            return
+        
         # Protect admin pages
         if self.path.endswith('admin.html') or self.path == '/web/admin.html' or \
            self.path.endswith('orders.html') or self.path == '/web/orders.html':
@@ -564,10 +571,10 @@ class InventoryHandler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
 
 def run(port=8000):
-    server_address = ('', port)
+    server_address = ('0.0.0.0', port)
     httpd = HTTPServer(server_address, InventoryHandler)
-    print(f'Server running at http://localhost:{port}/')
-    print(f'Admin: http://localhost:{port}/web/admin.html')
+    print(f'Server running on port {port}')
+    print(f'Working directory: {os.getcwd()}')
     httpd.serve_forever()
 
 if __name__ == '__main__':
