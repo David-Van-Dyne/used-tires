@@ -209,56 +209,76 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                 post_data = self.rfile.read(content_length)
                 order_data = json.loads(post_data)
                 
-                # Load existing orders
-                orders_path = os.path.join(os.getcwd(), 'data', 'orders.json')
-                orders = []
-                if os.path.exists(orders_path):
-                    with open(orders_path, 'r', encoding='utf-8') as f:
-                        orders = json.load(f)
+                # Create database session
+                session = get_session()
                 
-                # Add new order
-                orders.append(order_data)
-                
-                # Save orders
-                with open(orders_path, 'w', encoding='utf-8') as f:
-                    json.dump(orders, f, indent=2)
-                
-                # Update inventory (reduce quantities)
-                inventory_path = os.path.join(os.getcwd(), 'data', 'inventory.json')
-                with open(inventory_path, 'r', encoding='utf-8') as f:
-                    inventory = json.load(f)
-                
-                # Reduce quantities for ordered items
-                for order_item in order_data['items']:
-                    for inv_item in inventory:
-                        if inv_item['id'] == order_item['id']:
-                            inv_item['quantity'] = max(0, inv_item['quantity'] - order_item['selected_qty'])
-                            break
-                
-                # Save updated inventory
-                with open(inventory_path, 'w', encoding='utf-8') as f:
-                    json.dump(inventory, f, indent=2)
-                
-                # Success response
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json')
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.end_headers()
-                
-                response = json.dumps({
-                    'success': True, 
-                    'message': 'Order placed successfully',
-                    'orderId': order_data['id']
-                })
-                self.wfile.write(response.encode())
-                
-                print(f"✓ Order #{order_data['id']} placed - ${order_data['total']:.2f}")
-                
-                # Send confirmation email (non-blocking)
-                send_order_confirmation_email(order_data)
+                try:
+                    # Generate order ID
+                    max_order = session.query(Order).order_by(Order.id.desc()).first()
+                    order_id = (max_order.id + 1) if max_order else 1
+                    
+                    # Create timestamp
+                    order_timestamp = datetime.utcnow()
+                    order_data['id'] = order_id
+                    order_data['timestamp'] = order_timestamp.isoformat() + 'Z'
+                    order_data['status'] = 'pending'
+                    
+                    # Create new order
+                    customer = order_data.get('customer', {})
+                    new_order = Order(
+                        timestamp=order_timestamp,
+                        customer_name=f"{customer.get('firstName', '')} {customer.get('lastName', '')}".strip(),
+                        customer_email=customer.get('email', ''),
+                        customer_phone=customer.get('phone', ''),
+                        order_type=order_data.get('orderType', 'pickup'),
+                        items=order_data.get('items', []),
+                        total=order_data.get('total', 0.0),
+                        notes=order_data.get('notes', ''),
+                        status='pending'
+                    )
+                    session.add(new_order)
+                    session.flush()  # Get the ID
+                    order_data['id'] = new_order.id
+                    
+                    # Update inventory (reduce quantities)
+                    for order_item in order_data['items']:
+                        tire = session.query(Tire).filter_by(id=order_item['id']).first()
+                        if tire:
+                            tire.quantity = max(0, tire.quantity - order_item['selected_qty'])
+                    
+                    session.commit()
+                    
+                    # Success response
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'application/json')
+                    self.send_header('Access-Control-Allow-Origin', '*')
+                    self.end_headers()
+                    
+                    response = json.dumps({
+                        'success': True, 
+                        'message': 'Order placed successfully',
+                        'orderId': order_data['id']
+                    })
+                    self.wfile.write(response.encode())
+                    
+                    print(f"✓ Order #{order_data['id']} placed - ${order_data['total']:.2f}")
+                    
+                    # Send confirmation email (non-blocking)
+                    try:
+                        send_order_confirmation_email(order_data)
+                    except Exception as email_err:
+                        print(f"⚠ Email failed (order saved): {email_err}")
+                    
+                except Exception as e:
+                    session.rollback()
+                    raise e
+                finally:
+                    session.close()
                 
             except Exception as e:
                 print(f"✗ Order error: {e}")
+                import traceback
+                traceback.print_exc()
                 self.send_response(500)
                 self.send_header('Content-Type', 'application/json')
                 self.send_header('Access-Control-Allow-Origin', '*')
