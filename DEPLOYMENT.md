@@ -6,10 +6,10 @@
 
 ## Step-by-Step Deployment
 
-### 1. Create PostgreSQL Database
+### 1. Create Postgres Database
 
 1. Go to [render.com](https://render.com) and log in
-2. Click "New +" → "PostgreSQL"
+2. Click "New +" → "Postgres"
 3. Configure:
    - **Name**: `used-tires-db`
    - **Database**: `tires_db`
@@ -91,7 +91,7 @@ Your URL will be: `https://used-tires.onrender.com` (or whatever name you chose)
    - Subsequent requests are instant
    - This is normal for free tier
 
-2. **Database Expiration**: Free PostgreSQL expires after 90 days
+2. **Database Expiration**: Free Postgres expires after 90 days
    - Render sends email reminders
    - Simply click "Renew" in dashboard (still free)
    - Your data is preserved
