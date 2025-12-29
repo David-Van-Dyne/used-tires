@@ -307,6 +307,41 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Quantity controls for cart */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.qty-controls button {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.qty-controls button:hover {
+  background: #182139;
+}
+
+.qty-controls .cart-qty {
+  width: 60px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
 .select-row button {
   min-width: 44px;
   min-height: 44px;

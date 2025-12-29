@@ -57,7 +57,13 @@ function render() {
     tr.dataset.id = String(it.id);
     const line = (Number(it.price)||0) * it.selected_qty;
     tr.innerHTML = `
-      <td><input type="number" class="cart-qty" min="0" max="${it.quantity}" step="1" value="${it.selected_qty}" /></td>
+      <td>
+        <div class="qty-controls">
+          <button type="button" class="dec">-</button>
+          <input type="number" class="cart-qty" min="0" max="${it.quantity}" step="1" value="${it.selected_qty}" />
+          <button type="button" class="inc">+</button>
+        </div>
+      </td>
       <td>${escapeHtml(it.size)}</td>
       <td>${escapeHtml(`${it.brand} ${it.model}`.trim())}</td>
       <td>$${(Number(it.price)||0).toFixed(2)}</td>
@@ -67,7 +73,7 @@ function render() {
   }
   els.cartTableBody.replaceChildren(frag);
   const { tires, cost } = selectedTotals(items);
-  els.cartMeta.innerHTML = tires > 0 ? `<span class="cartCost">${tires} tire(s), $${cost.toFixed(2)}</span>` : 'No items selected';
+  els.cartMeta.innerHTML = tires > 0 ? `${tires} tire(s), <span class="selCost">$${cost.toFixed(2)}</span>` : 'No items selected';
 }
 
 function onTableInput(e) {
@@ -84,9 +90,32 @@ function onTableInput(e) {
 }
 
 function onTableClick(e) {
-  if (!e.target.closest('.cart-del')) return;
   const tr = e.target.closest('tr'); if (!tr) return;
-  const id = Number(tr.dataset.id); delete state.cart[id]; saveCartToStorage(); render();
+  const id = Number(tr.dataset.id);
+  
+  // Handle remove button
+  if (e.target.closest('.cart-del')) {
+    delete state.cart[id]; saveCartToStorage(); render();
+    return;
+  }
+  
+  // Handle inc/dec buttons
+  const isInc = e.target.closest('.inc');
+  const isDec = e.target.closest('.dec');
+  if (!isInc && !isDec) return;
+  
+  const it = state.all.find(x => Number(x.id) === id); if (!it) return;
+  const input = tr.querySelector('.cart-qty');
+  const max = Number(it.quantity)||0;
+  let qty = Number(input.value||0);
+  
+  if (isInc) qty = Math.min(max, qty + 1);
+  if (isDec) qty = Math.max(0, qty - 1);
+  
+  input.value = String(qty);
+  if (qty > 0) state.cart[id] = qty; else delete state.cart[id];
+  saveCartToStorage();
+  render();
 }
 
 function clearCart() { state.cart = {}; saveCartToStorage(); render(); }

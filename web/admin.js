@@ -198,11 +198,30 @@ function onImportCsv(e) {
         alert("No rows found in CSV.");
         return;
       }
-      state.items = normalize(objs);
+      
+      // Get the highest existing ID
+      const maxId = state.items.reduce((max, item) => Math.max(max, Number(item.id) || 0), 0);
+      
+      // Normalize new items with sequential IDs starting after maxId
+      const newItems = objs.map((item, index) => ({
+        id: maxId + index + 1,
+        size: String(item.size || "").trim(),
+        brand: item.brand || "",
+        model: item.model || "",
+        tread_32nds: Number(item.tread_32nds ?? 0) || 0,
+        quantity: Number(item.quantity ?? 1) || 1,
+        price: Number(item.price ?? 0) || 0,
+        notes: item.notes || "",
+      }));
+      
+      // Add new items to existing inventory
+      state.items = [...state.items, ...newItems];
       render();
+      
+      alert(`Added ${newItems.length} item(s) to inventory. Click "Save to Server" to persist changes.`);
     } catch (err) {
       console.error(err);
-      alert("Invalid CSV file.");
+      alert("Failed to import CSV: " + err.message);
     }
   };
   reader.readAsText(file);
