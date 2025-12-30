@@ -293,9 +293,7 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                     print("📦 Database session closed")
                 
             except Exception as e:
-                print(f"✗ Order submission failed: {type(e).__name__}
-            except Exception as e:
-                print(f"✗ Order error: {e}")
+                print(f"✗ Order submission failed: {type(e).__name__}: {e}")
                 import traceback
                 traceback.print_exc()
                 self.send_response(500)
