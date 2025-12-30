@@ -283,6 +283,8 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                         send_order_confirmation_email(order_data)
                     except Exception as email_err:
                         print(f"⚠ Email failed (order saved): {email_err}")
+                    
+                except Exception as e:
                     print(f"✗ Database error during order creation: {e}")
                     import traceback
                     traceback.print_exc()
