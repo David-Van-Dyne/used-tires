@@ -19,6 +19,7 @@ const els = {
   grid: document.getElementById("inventoryGrid"),
   sizeList: document.getElementById("sizeList"),
   resultsMeta: document.getElementById("resultsMeta"),
+  selCost: document.querySelector('.selCost'),
   cardTpl: document.getElementById("tireCardTemplate"),
   viewCartBtn: document.getElementById("viewCartBtn"),
 };
@@ -160,8 +161,17 @@ function render() {
   const totalTires = sumQuantities(state.filtered);
   const { tires: selTires, cost: selCost } = selectedTotals();
   const sizeHint = state.filters.size ? ` in ${state.filters.size}` : "";
-  const selHint = selTires > 0 ? `. Selected: ${selTires} tire(s), <span class="selCost">$${selCost.toFixed(2)}</span>` : "";
-  els.resultsMeta.innerHTML = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint + selHint;
+  
+  // Update results meta (without selected info)
+  els.resultsMeta.innerHTML = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint;
+  
+  // Update separate cost display
+  if (selTires > 0) {
+    els.selCost.textContent = `Selected: ${selTires} tire(s), $${selCost.toFixed(2)}`;
+  } else {
+    els.selCost.textContent = '';
+  }
+  
   updateCartLinkCount();
   const frag = document.createDocumentFragment();
   if (state.filtered.length === 0) {
@@ -221,8 +231,17 @@ function onGridInput(e) {
   const totalTires = sumQuantities(state.filtered);
   const { tires: selTires, cost: selCost } = selectedTotals();
   const sizeHint = state.filters.size ? ` in ${state.filters.size}` : '';
-  const selHint = selTires > 0 ? `. Selected: ${selTires} tire(s), <span class="selCost">$${selCost.toFixed(2)}</span>` : '';
-  els.resultsMeta.innerHTML = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint + selHint;
+  
+  // Update results meta (without selected info)
+  els.resultsMeta.innerHTML = `${listings} listing(s), ${totalTires} tire(s)` + sizeHint;
+  
+  // Update separate cost display
+  if (selTires > 0) {
+    els.selCost.textContent = `Selected: ${selTires} tire(s), $${selCost.toFixed(2)}`;
+  } else {
+    els.selCost.textContent = '';
+  }
+  
   updateCartLinkCount();
 }
 
