@@ -118,6 +118,12 @@ body {
   margin: auto;
 }
 
+.selcost-wrapper {
+  align-self: end;
+  display: flex;
+  align-items: center;
+}
+
 .results-meta {
   font-size: 20px;
 }
