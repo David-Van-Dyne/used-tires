@@ -91,9 +91,24 @@ def get_database_url():
 def init_db():
     """Initialize database connection and create tables"""
     db_url = get_database_url()
-    engine = create_engine(db_url, echo=False)
+    
+    # Configure connection pool for PostgreSQL
+    if db_url.startswith('postgresql://'):
+        engine = create_engine(
+            db_url, 
+            echo=False,
+            pool_size=5,
+            max_overflow=10,
+            pool_timeout=30,
+            pool_recycle=3600,
+            pool_pre_ping=True  # Verify connections before using
+        )
+    else:
+        # SQLite for local development
+        engine = create_engine(db_url, echo=False)
+    
     Base.metadata.create_all(engine)
-    SessionLocal = sessionmaker(bind=engine)
+    SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
     return engine, SessionLocal
 
 # Create global session maker
