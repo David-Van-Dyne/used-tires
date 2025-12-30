@@ -205,23 +205,23 @@ class InventoryHandler(SimpleHTTPRequestHandler):
         # Handle order submission (public endpoint)
         if self.path == '/api/submit-order':
             try:
-                print("📦 Received order submission request")
+                print("📦 Received order submission request", flush=True)
                 content_length = int(self.headers['Content-Length'])
                 post_data = self.rfile.read(content_length)
                 order_data = json.loads(post_data)
-                print(f"📦 Order data parsed: {len(order_data.get('items', []))} items")
+                print(f"📦 Order data parsed: {len(order_data.get('items', []))} items", flush=True)
                 
                 # Create database session
-                print("📦 Creating database session...")
+                print("📦 Creating database session...", flush=True)
                 session = get_session()
-                print("📦 Database session created successfully")
+                print("📦 Database session created successfully", flush=True)
                 
                 try:
                     # Generate order ID
-                    print("📦 Querying for max order ID...")
+                    print("📦 Querying for max order ID...", flush=True)
                     max_order = session.query(Order).order_by(Order.id.desc()).first()
                     order_id = (max_order.id + 1) if max_order else 1
-                    print(f"📦 Generated order ID: {order_id}")
+                    print(f"📦 Generated order ID: {order_id}", flush=True)
                     
                     # Create timestamp
                     order_timestamp = datetime.utcnow()
@@ -231,7 +231,7 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                     
                     # Create new order
                     customer = order_data.get('customer', {})
-                    print(f"📦 Creating order for: {customer.get('email', 'unknown')}")
+                    print(f"📦 Creating order for: {customer.get('email', 'unknown')}", flush=True)
                     new_order = Order(
                         timestamp=order_timestamp,
                         customer_name=f"{customer.get('firstName', '')} {customer.get('lastName', '')}".strip(),
@@ -243,25 +243,25 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                         notes=order_data.get('notes', ''),
                         status='pending'
                     )
-                    print("📦 Adding order to session...")
+                    print("📦 Adding order to session...", flush=True)
                     session.add(new_order)
-                    print("📦 Flushing to get order ID...")
+                    print("📦 Flushing to get order ID...", flush=True)
                     session.flush()  # Get the ID
                     order_data['id'] = new_order.id
-                    print(f"📦 Order created with ID: {new_order.id}")
+                    print(f"📦 Order created with ID: {new_order.id}", flush=True)
                     
                     # Update inventory (reduce quantities)
-                    print(f"📦 Updating inventory for {len(order_data['items'])} items...")
+                    print(f"📦 Updating inventory for {len(order_data['items'])} items...", flush=True)
                     for order_item in order_data['items']:
                         tire = session.query(Tire).filter_by(id=order_item['id']).first()
                         if tire:
                             old_qty = tire.quantity
                             tire.quantity = max(0, tire.quantity - order_item['selected_qty'])
-                            print(f"📦 Updated tire {tire.id}: {old_qty} → {tire.quantity}")
+                            print(f"📦 Updated tire {tire.id}: {old_qty} → {tire.quantity}", flush=True)
                     
-                    print("📦 Committing transaction...")
+                    print("📦 Committing transaction...", flush=True)
                     session.commit()
-                    print("📦 Transaction committed successfully!")
+                    print("📦 Transaction committed successfully!", flush=True)
                     
                     # Success response
                     self.send_response(200)
@@ -276,26 +276,26 @@ class InventoryHandler(SimpleHTTPRequestHandler):
                     })
                     self.wfile.write(response.encode())
                     
-                    print(f"✓ Order #{order_data['id']} placed - ${order_data['total']:.2f}")
+                    print(f"✓ Order #{order_data['id']} placed - ${order_data['total']:.2f}", flush=True)
                     
                     # Send confirmation email (non-blocking)
                     try:
                         send_order_confirmation_email(order_data)
                     except Exception as email_err:
-                        print(f"⚠ Email failed (order saved): {email_err}")
+                        print(f"⚠ Email failed (order saved): {email_err}", flush=True)
                     
                 except Exception as e:
-                    print(f"✗ Database error during order creation: {e}")
+                    print(f"✗ Database error during order creation: {e}", flush=True)
                     import traceback
                     traceback.print_exc()
                     session.rollback()
                     raise e
                 finally:
                     session.close()
-                    print("📦 Database session closed")
+                    print("📦 Database session closed", flush=True)
                 
             except Exception as e:
-                print(f"✗ Order submission failed: {type(e).__name__}: {e}")
+                print(f"✗ Order submission failed: {type(e).__name__}: {e}", flush=True)
                 import traceback
                 traceback.print_exc()
                 self.send_response(500)
