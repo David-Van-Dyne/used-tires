@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import HTTPServer, SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 import hashlib
@@ -103,8 +103,8 @@ def send_order_confirmation_email(order_data):
         
         msg.attach(MIMEText(html, 'html'))
         
-        # Send email
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+        # Send email with timeout
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
             server.starttls()
             server.login(SMTP_USER, SMTP_PASSWORD)
             server.send_message(msg)
@@ -623,9 +623,9 @@ class InventoryHandler(SimpleHTTPRequestHandler):
 
 def run(port=8000):
     server_address = ('0.0.0.0', port)
-    httpd = HTTPServer(server_address, InventoryHandler)
-    print(f'Server running on port {port}')
-    print(f'Working directory: {os.getcwd()}')
+    httpd = ThreadingHTTPServer(server_address, InventoryHandler)
+    print(f'Server running on port {port} (multi-threaded)', flush=True)
+    print(f'Working directory: {os.getcwd()}', flush=True)
     httpd.serve_forever()
 
 if __name__ == '__main__':

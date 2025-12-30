@@ -101,7 +101,11 @@ def init_db():
             max_overflow=10,
             pool_timeout=30,
             pool_recycle=3600,
-            pool_pre_ping=True  # Verify connections before using
+            pool_pre_ping=True,  # Verify connections before using
+            connect_args={
+                'connect_timeout': 10,  # 10 second connection timeout
+                'options': '-c statement_timeout=30000'  # 30 second query timeout
+            }
         )
     else:
         # SQLite for local development
